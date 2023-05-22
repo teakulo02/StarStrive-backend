@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/starstrive_db
-    username: postgres
-    password: admin
+    url: jdbc:postgresql://${APP_DB_URL:localhost}:${APP_DB_PORT:5432}/${APP_DB_NAME:starstrive_db}
+    username: ${APP_DB_USERNAME:postgres}
+    password: ${APP_DB_PASSWORD:admin}
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,7 +15,13 @@ spring:
   data:
     jpa:
       repositories.enabled: true
-
+application:
+  security:
+    jwt:
+      secret-key: 566D5971337336763979244226452948404D635166546A576E5A723475377721
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
 frontend:
   url: ${FRONTEND_API_URL:http://localhost:4200}
 
